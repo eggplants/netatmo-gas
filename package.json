@@ -1,0 +1,29 @@
+{
+  "name": "netatmo-gas",
+  "version": "1.0.0",
+  "description": "Post Netatmo status to slack",
+  "main": "index.js",
+  "repository": "https://github.com/eggplants/netatmo-gas",
+  "scripts": {
+    "auth": "clasp login",
+    "create-sheet": "clasp create --type sheets --title 'Netatmo GAS' && jq -f addOAuth2.jq appsscript.json 1<>appsscript.json",
+    "build": "node build.js",
+    "push": "clasp push",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "eggplants <w10776e8w@yahoo.co.jp>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.6.4",
+  "devDependencies": {
+    "@google/clasp": "3.0.3-alpha",
+    "@types/google-apps-script": "^1.0.97",
+    "@types/google-apps-script-oauth2": "^38.0.4",
+    "esbuild": "^0.25.2",
+    "esbuild-gas-plugin": "^0.9.0",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "prettier": "^3.5.3"
+  }
+}
