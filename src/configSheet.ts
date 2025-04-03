@@ -52,4 +52,4 @@ export const initConfig = (): boolean => {
   ]);
   Logger.log(`Sheet '${CONFIG_SHEET_NAME}' is created. Please update the values.`);
   return true;
-}
+};

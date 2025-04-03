@@ -3,10 +3,22 @@ import { appendLog } from './logSheet';
 import { createSlackMessage } from './slackMessage';
 import { NetatmoStationData } from './type';
 
+const getNetatmoService = (): GoogleAppsScriptOAuth2.OAuth2Service => {
+  const { clientId, clientSecret } = getConfig();
+  return OAuth2.createService('Netatmo')
+    .setAuthorizationBaseUrl('https://api.netatmo.com/oauth2/authorize')
+    .setTokenUrl('https://api.netatmo.com/oauth2/token')
+    .setClientId(clientId)
+    .setClientSecret(clientSecret)
+    .setCallbackFunction('authCallback')
+    .setPropertyStore(PropertiesService.getUserProperties())
+    .setScope('read_station');
+};
+
 export const main = () => {
-  if(initConfig()) {
+  if (initConfig()) {
     return;
-  };
+  }
 
   const service = getNetatmoService();
   const { slackWebhookUrl } = getConfig();
@@ -39,18 +51,6 @@ export const main = () => {
     payload: JSON.stringify(createSlackMessage(result, serverDate)),
   });
   Logger.log(slackResponse.getContentText());
-};
-
-const getNetatmoService = (): GoogleAppsScriptOAuth2.OAuth2Service => {
-  const { clientId, clientSecret } = getConfig();
-  return OAuth2.createService('Netatmo')
-    .setAuthorizationBaseUrl('https://api.netatmo.com/oauth2/authorize')
-    .setTokenUrl('https://api.netatmo.com/oauth2/token')
-    .setClientId(clientId)
-    .setClientSecret(clientSecret)
-    .setCallbackFunction('authCallback')
-    .setPropertyStore(PropertiesService.getUserProperties())
-    .setScope('read_station');
 };
 
 export const authCallback = (request: object): GoogleAppsScript.HTML.HtmlOutput => {
