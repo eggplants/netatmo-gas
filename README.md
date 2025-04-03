@@ -4,7 +4,6 @@
 
 ## Setup
 
-
 Open Dev Container and then:
 
 ```bash
