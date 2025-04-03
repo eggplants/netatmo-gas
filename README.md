@@ -1,6 +1,9 @@
 # netatmo-gas
 
+![Screenshot](https://github.com/user-attachments/assets/148bae3a-3503-4385-bee4-3b623f42f140)
+
 ## Setup
+
 
 Open Dev Container and then:
 
