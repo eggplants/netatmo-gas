@@ -5,7 +5,7 @@ export const createSlackMessage = (stationData: NetatmoStationData, serverDate: 
     {
       type: 'header',
       text: {
-        text: `Netatmo Station ${Utilities.formatDate(serverDate, 'JST', 'yyyy-MM-dd HH:mm:ss')}`,
+        text: `Netatmo Station ${Utilities.formatDate(serverDate, 'JST', 'yyyy-MM-dd HH:mm')}`,
         type: 'plain_text',
       },
     },

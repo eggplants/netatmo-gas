@@ -1,6 +1,7 @@
 import { getConfig, initConfig } from './configSheet';
 import { appendLog } from './logSheet';
 import { createSlackMessage } from './slackMessage';
+import { updateTrigger } from './trigger';
 import { NetatmoStationData } from './type';
 
 const getNetatmoService = (): GoogleAppsScriptOAuth2.OAuth2Service => {
@@ -16,6 +17,8 @@ const getNetatmoService = (): GoogleAppsScriptOAuth2.OAuth2Service => {
 };
 
 export const main = () => {
+  updateTrigger();
+
   if (initConfig()) {
     return;
   }
