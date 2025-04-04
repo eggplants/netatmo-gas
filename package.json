@@ -6,7 +6,7 @@
   "repository": "https://github.com/eggplants/netatmo-gas",
   "scripts": {
     "auth": "clasp login",
-    "create-sheet": "clasp create --type sheets --title 'Netatmo GAS' && jq -f addOAuth2.jq appsscript.json 1<>appsscript.json",
+    "create-sheet": "clasp create --type sheets --title 'Netatmo GAS' && jq -f addASL.jq appsscript.json 1<>appsscript.json",
     "build": "node build.js",
     "push": "clasp push",
     "format": "prettier --write ."
