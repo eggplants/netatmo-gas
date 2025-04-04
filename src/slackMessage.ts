@@ -1,4 +1,4 @@
-import { NetatmoStationData } from './type';
+import { NetatmoStationData, NetatmoStationDevice } from './type';
 
 export const createSlackMessage = (stationData: NetatmoStationData, serverDate: Date) => ({
   blocks: [
@@ -12,31 +12,19 @@ export const createSlackMessage = (stationData: NetatmoStationData, serverDate: 
     {
       type: 'divider',
     },
-    ...stationData.body.devices.map((device) => ({
-      type: 'section',
-      text: {
-        text: device.station_name,
-        type: 'plain_text',
-      },
-      fields: [
-        ['Temp.', `${device.dashboard_data.Temperature}°C`],
-        ['Humidity', `${device.dashboard_data.Humidity}%`],
-        ['CO2', `${device.dashboard_data.CO2}ppm`],
-        ['Noise', `${device.dashboard_data.Noise}dB`],
-        ['Pressure', `${device.dashboard_data.Pressure}hPa`],
-      ].map(([label, value]) => ({
-        "type": "section",
-        "fields": [
-          {
-            type: 'mrkdwn',
-            text: `*${label}*`,
-          },
-          {
-            type: 'plain_text',
-            text: value,
-          },
-        ],
-      })),
-    })),
+    ...stationData.body.devices.flatMap((device) => createSlackMessageForDevice(device)),
   ],
 });
+
+const createSlackMessageForDevice = (device: NetatmoStationDevice) =>
+  [
+    `*${device.station_name}*`,
+    `*Temp.*: ${device.dashboard_data.Temperature}°C`,
+    `*Humidity*: ${device.dashboard_data.Humidity}%`,
+    `*CO2*: ${device.dashboard_data.CO2}ppm`,
+    `*Noise*: ${device.dashboard_data.Noise}dB`,
+    `*Pressure*: ${device.dashboard_data.Pressure}hPa`,
+  ].map((text) => ({
+    type: 'section',
+    fields: [{ type: 'mrkdwn', text }],
+  }));

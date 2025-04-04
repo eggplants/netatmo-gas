@@ -37,18 +37,20 @@ export const main = () => {
     method: 'post',
   }).getContentText();
 
-  const result: NetatmoStationData = JSON.parse(netatmoJson);
-  const serverDate = new Date(result.time_server * 1000);
+  const netatmoData: NetatmoStationData = JSON.parse(netatmoJson);
+  const serverDate = new Date(netatmoData.time_server * 1000);
   appendLog(netatmoJson, serverDate);
+  Logger.log(netatmoJson);
 
-  Logger.log(result);
+  const slackMessageJson = JSON.stringify(createSlackMessage(netatmoData, serverDate));
+  Logger.log(slackMessageJson);
 
   const slackResponse = UrlFetchApp.fetch(slackWebhookUrl, {
     headers: {
       'Content-Type': 'application/json',
     },
     method: 'post',
-    payload: JSON.stringify(createSlackMessage(result, serverDate)),
+    payload: slackMessageJson,
   });
   Logger.log(slackResponse.getContentText());
 };
