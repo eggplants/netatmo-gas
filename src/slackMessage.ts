@@ -24,16 +24,19 @@ export const createSlackMessage = (stationData: NetatmoStationData, serverDate: 
         ['CO2', `${device.dashboard_data.CO2}ppm`],
         ['Noise', `${device.dashboard_data.Noise}dB`],
         ['Pressure', `${device.dashboard_data.Pressure}hPa`],
-      ].flatMap(([label, value]) => [
-        {
-          type: 'mrkdwn',
-          text: `*${label}*`,
-        },
-        {
-          type: 'plain_text',
-          text: value,
-        },
-      ]),
+      ].map(([label, value]) => ({
+        "type": "section",
+        "fields": [
+          {
+            type: 'mrkdwn',
+            text: `*${label}*`,
+          },
+          {
+            type: 'plain_text',
+            text: value,
+          },
+        ],
+      })),
     })),
   ],
 });
