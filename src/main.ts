@@ -1,4 +1,4 @@
-import { getConfig, initConfig } from './configSheet';
+import { getConfig, initConfigSheet } from './configSheet';
 import { appendLog } from './logSheet';
 import { createSlackMessage } from './slackMessage';
 import { updateTrigger } from './trigger';
@@ -18,8 +18,9 @@ const getNetatmoService = (): GoogleAppsScriptOAuth2.OAuth2Service => {
 
 export const main = () => {
   updateTrigger();
+  const isUpdateNeeded = initConfigSheet();
 
-  if (initConfig()) {
+  if (isUpdateNeeded) {
     return;
   }
 
@@ -42,7 +43,7 @@ export const main = () => {
 
   const netatmoData: NetatmoStationData = JSON.parse(netatmoJson);
   const serverDate = new Date(netatmoData.time_server * 1000);
-  appendLog(netatmoJson, serverDate);
+  appendLog(netatmoData, serverDate);
   Logger.log(netatmoJson);
 
   const slackMessageJson = JSON.stringify(createSlackMessage(netatmoData, serverDate));

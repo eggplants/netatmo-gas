@@ -2,9 +2,7 @@
 
 set -euxo pipefail
 
-cat <<'EOF' >> ~/.zshrc
-eval "$(pnpm completion zsh)"
-EOF
+pnpm completion zsh >> ~/.zshrc
 
 sed -i ~/.zshrc -e 's/^ZSH_THEME=.*/ZSH_THEME="refined"/'
 

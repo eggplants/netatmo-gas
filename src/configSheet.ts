@@ -39,7 +39,7 @@ export const getConfig = (): UserConfig => {
   };
 };
 
-export const initConfig = (): boolean => {
+export const initConfigSheet = (): boolean => {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   if (ss.getSheetByName(CONFIG_SHEET_NAME)) {
     return false;

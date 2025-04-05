@@ -1,8 +1,31 @@
-const LOG_SHEET_NAME = 'log';
+import { NetatmoStationData, NetatmoStationDevice } from './type';
 
-export const appendLog = (result: string, serverDate: Date) => {
+const LOG_SHEET_PREFIX = 'log';
+
+export const appendLog = (netatmoData: NetatmoStationData, serverDate: Date) => {
+  netatmoData.body.devices.forEach((device) => {
+    const sheet = getLogSheet(device);
+
+    sheet?.appendRow([
+      Utilities.formatDate(serverDate, 'JST', 'yyyy-MM-dd HH:mm:ss'),
+      device.dashboard_data.Temperature,
+      device.dashboard_data.Humidity,
+      device.dashboard_data.CO2,
+      device.dashboard_data.Noise,
+      device.dashboard_data.Pressure,
+    ]);
+  });
+};
+
+const getLogSheet = (device: NetatmoStationDevice): GoogleAppsScript.Spreadsheet.Sheet => {
+  const sheetName = `${LOG_SHEET_PREFIX} - ${device.station_name} (${device._id})`;
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName(LOG_SHEET_NAME) ?? ss.insertSheet(LOG_SHEET_NAME);
-
-  sheet?.appendRow([Utilities.formatDate(serverDate, 'JST', 'yyyy-MM-dd HH:mm:ss'), result]);
+  const existingSheet = ss.getSheetByName(sheetName);
+  if (existingSheet) {
+    return existingSheet;
+  }
+  const sheet = ss.insertSheet(sheetName);
+  sheet.appendRow(['Date', 'Temperature(℃)', 'Humidity(%)', 'CO2(ppm)', 'Noise(dB)', 'Pressure(hPa)']);
+  Logger.log(`Sheet '${sheetName}' is created.`);
+  return sheet;
 };
