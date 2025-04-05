@@ -1,14 +1,18 @@
-const { GasPlugin } = require('esbuild-gas-plugin');
+import {exit} from 'node:process';
+import {GasPlugin} from 'esbuild-gas-plugin';
+import {build} from 'esbuild';
 
-require('esbuild')
-  .build({
-    entryPoints: ['src/index.ts'],
-    bundle: true,
-    minify: false,
-    outfile: './dist/index.js',
-    plugins: [GasPlugin],
-  })
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+const buildResult = await build({
+	entryPoints: ['src/index.ts'],
+	bundle: true,
+	minify: false,
+	outfile: './dist/index.js',
+	plugins: [GasPlugin],
+});
+if (buildResult.errors.length > 0) {
+	for (const error of buildResult.errors) {
+		console.error(error);
+	}
+
+	exit(1);
+}

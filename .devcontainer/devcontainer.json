@@ -25,11 +25,30 @@
         "oderwat.indent-rainbow",
         "tekumara.typos-vscode",
         "timonwong.shellcheck",
-        "esbenp.prettier-vscode",
-        "davidanson.vscode-markdownlint"
+        "yoavbls.pretty-ts-errors",
+        "davidanson.vscode-markdownlint",
+        "samverschueren.linter-xo"
       ],
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "xo.enable": true,
+        "xo.format.enable": true,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "shellformat.flag": "-s",
+        "shellformat.path": "/usr/local/bin/shfmt",
+        "[javascript][typescript]": {
+          "editor.codeActionsOnSave": {
+            "source.fixAll.xo": "explicit"
+          },
+          "editor.defaultFormatter": "samverschueren.linter-xo",
+          "editor.formatOnSave": true
+        },
+        "[json][yaml][markdown]": {
+          "editor.codeActionsOnSave": {
+            "source.fixAll.xo": "explicit"
+          },
+          "editor.defaultFormatter": "samverschueren.linter-xo",
+          "editor.formatOnSave": true
+        }
       }
     }
   }

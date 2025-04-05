@@ -1,4 +1,4 @@
-import { main, authCallback } from './main';
+import {main, authCallback} from './main.js';
 
 declare let global: any;
 global.main = main;
