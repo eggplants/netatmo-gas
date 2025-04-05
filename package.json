@@ -8,7 +8,7 @@
   "scripts": {
     "auth": "clasp login",
     "create-sheet": "clasp create --type sheets --title 'Netatmo GAS' && jq -f addASL.jq appsscript.json 1<>appsscript.json",
-    "build": "node build.js",
+    "build": "node --experimental-strip-types --disable-warning=ExperimentalWarning build.ts",
     "push": "pnpm build && clasp push",
     "format:xo": "xo --fix",
     "format": "concurrently pnpm:format:*",
@@ -24,6 +24,7 @@
     "@google/clasp": "3.0.3-alpha",
     "@types/google-apps-script": "^1.0.97",
     "@types/google-apps-script-oauth2": "^38.0.4",
+    "@types/node": "^22.14.0",
     "concurrently": "^9.1.2",
     "esbuild": "^0.25.2",
     "esbuild-gas-plugin": "^0.9.0",
