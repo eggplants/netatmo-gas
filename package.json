@@ -1,6 +1,7 @@
 {
   "name": "netatmo-gas",
   "version": "1.0.0",
+  "type": "module",
   "description": "Post Netatmo status to slack",
   "main": "index.js",
   "repository": "https://github.com/eggplants/netatmo-gas",
