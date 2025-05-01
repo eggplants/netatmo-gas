@@ -14,6 +14,14 @@ pnpm create-sheet
 # └─ appsscript.json
 pnpm build
 pnpm push
+
+# pull existing script
+cat <<'JSON'> .clasp.json
+{
+  "scriptId": "<existing script ID>"
+}
+JSON
+pnpm clasp pull
 ```
 
 Open created script and execute to setup `config` sheet.
