@@ -4,7 +4,14 @@ export function updateTrigger(): void {
   }
 
   const nextTriggerDate = new Date()
-  nextTriggerDate.setMinutes(nextTriggerDate.getMinutes() + 5)
+  const minutes = (Math.floor(nextTriggerDate.getMinutes() / 5) + 1) * 5
+  if (minutes === 60) {
+    nextTriggerDate.setHours(nextTriggerDate.getHours() + 1)
+    nextTriggerDate.setMinutes(0)
+  } else {
+    nextTriggerDate.setMinutes(minutes)
+  }
+
   nextTriggerDate.setSeconds(0)
   Logger.log(`Next trigger date: ${nextTriggerDate.toString()}`)
 
