@@ -30,7 +30,7 @@ function createSlackMessageForDevice(device: NetatmoStationDevice) {
   return [
     `*${device.station_name}*`,
     `*Temp.*: ${temperature[0]}°C	${temperature[1]}`,
-    `*Humidity*: ${humidity[0]}}%	${humidity[1]}`,
+    `*Humidity*: ${humidity[0]}%	${humidity[1]}`,
     `*CO2*: ${co2ppm[0]}ppm	${co2ppm[1]}`,
     `*Noise*: ${noiseDb[0]}dB	${noiseDb[1]}`,
     `*Pressure*: ${pressureHpa[0]}hPa	${pressureHpa[1]}`,

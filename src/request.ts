@@ -18,6 +18,6 @@ export function postToSlack(slackWebhookUrl: string, message: Record<string, unk
       'Content-Type': 'application/json',
     },
     method: 'post',
-    payload: message,
+    payload: JSON.stringify(message),
   }).getContentText()
 }
