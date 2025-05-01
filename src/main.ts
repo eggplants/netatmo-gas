@@ -33,7 +33,7 @@ export function main(): void {
   const netatmoData = fetchNetatmoResponse(service.getAccessToken())
   const serverDate = new Date(netatmoData.time_server * 1000)
   const {slackWebhookUrl} = getConfig()
-  if (serverDate.getMinutes() === 0) {
+  if (serverDate.getMinutes() < 5) {
     postToSlack(slackWebhookUrl, createSlackMessage(netatmoData, serverDate))
   }
 
