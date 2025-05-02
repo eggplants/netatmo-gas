@@ -13,10 +13,7 @@ export function evaluateEnvironmentParameter(props: {
     noiseDb: [noiseDb, toStarRating(evaluateNoise(noiseDb))],
     pressureHpa: [pressureHpa, toStarRating(evaluatePressure(pressureHpa))],
     temperature: [temperature, toStarRating(evaluateTemperature(temperature))],
-    temperatureHumidityIndex: [
-      temperatureHumidityIndex,
-      toStarRating(evaluateTemperatureHumidityIndex(temperatureHumidityIndex)),
-    ],
+    thi: [thi, toStarRating(evaluateThi(thi))],
   }
 }
 
