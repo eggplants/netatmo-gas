@@ -6,17 +6,28 @@ export function evaluateEnvironmentParameter(props: {
   pressureHpa: number
 }) {
   const {co2ppm, humidity, noiseDb, pressureHpa, temperature} = props
+  // NOTE: https://ja.wikipedia.org/wiki/不快指数
+  const thi = 0.81 * temperature + 0.01 * humidity * (0.99 * temperature - 14.3) + 46.3
   return {
     co2ppm: [co2ppm, toStarRating(evaluateCo2(co2ppm))],
     humidity: [humidity, toStarRating(evaluateHumidity(humidity))],
     noiseDb: [noiseDb, toStarRating(evaluateNoise(noiseDb))],
     pressureHpa: [pressureHpa, toStarRating(evaluatePressure(pressureHpa))],
     temperature: [temperature, toStarRating(evaluateTemperature(temperature))],
+    thi: [thi, toStarRating(evaluateThi(thi))],
   }
 }
 
 function toStarRating(score: number): string {
   return '★'.repeat(score) + '☆'.repeat(5 - score)
+}
+
+function evaluateThi(thi: number): number {
+  if (thi >= 65 && thi <= 70) return 5
+  if (thi >= 60 && thi < 65) return 4
+  if (thi >= 55 && thi < 60 && thi > 70 && thi <= 75) return 3
+  if ((thi >= 50 && thi < 55) || (thi > 75 && thi <= 80)) return 2
+  return 1 // Thi < 50 or > 80
 }
 
 function evaluateTemperature(temp: number): number {
