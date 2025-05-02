@@ -22,12 +22,12 @@ function toStarRating(score: number): string {
   return '★'.repeat(score) + '☆'.repeat(5 - score)
 }
 
-function evaluateThi(discomfortIndex: number): number {
-  if (discomfortIndex >= 65 && discomfortIndex <= 70) return 5
-  if (discomfortIndex >= 60 && discomfortIndex < 65) return 4
-  if (discomfortIndex >= 55 && discomfortIndex < 60 && discomfortIndex > 70 && discomfortIndex <= 75) return 3
-  if ((discomfortIndex >= 50 && discomfortIndex < 55) || (discomfortIndex > 75 && discomfortIndex <= 80)) return 2
-  return 1 // TemperatureHumidityIndex < 50 or > 80
+function evaluateThi(thi: number): number {
+  if (thi >= 65 && thi <= 70) return 5
+  if (thi >= 60 && thi < 65) return 4
+  if (thi >= 55 && thi < 60 && thi > 70 && thi <= 75) return 3
+  if ((thi >= 50 && thi < 55) || (thi > 75 && thi <= 80)) return 2
+  return 1 // Thi < 50 or > 80
 }
 
 function evaluateTemperature(temp: number): number {
