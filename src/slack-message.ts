@@ -34,7 +34,7 @@ function createSlackMessageForDevice(device: NetatmoStationDevice) {
     `*CO2*: ${co2ppm[0]}ppm	${co2ppm[1]}`,
     `*Noise*: ${noiseDb[0]}dB	${noiseDb[1]}`,
     `*Pressure*: ${pressureHpa[0]}hPa	${pressureHpa[1]}`,
-    `*THI*: ${temperatureHumidityIndex[0]}	${temperatureHumidityIndex[1]}`,
+    `*THI*: ${thi[0]}	${thi[1]}`,
   ].map((text) => ({
     fields: [{text, type: 'mrkdwn'}],
     type: 'section',
