@@ -22,7 +22,7 @@ function toStarRating(score: number): string {
   return '★'.repeat(score) + '☆'.repeat(5 - score)
 }
 
-function evaluateTemperatureHumidityIndex(discomfortIndex: number): number {
+function evaluateThi(discomfortIndex: number): number {
   if (discomfortIndex >= 65 && discomfortIndex <= 70) return 5
   if (discomfortIndex >= 60 && discomfortIndex < 65) return 4
   if (discomfortIndex >= 55 && discomfortIndex < 60 && discomfortIndex > 70 && discomfortIndex <= 75) return 3
