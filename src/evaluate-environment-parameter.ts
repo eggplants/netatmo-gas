@@ -6,6 +6,7 @@ export function evaluateEnvironmentParameter(props: {
   pressureHpa: number
 }) {
   const {co2ppm, humidity, noiseDb, pressureHpa, temperature} = props
+
   // NOTE: https://ja.wikipedia.org/wiki/不快指数
   const thi = 0.81 * temperature + 0.01 * humidity * (0.99 * temperature - 14.3) + 46.3
   return {
@@ -55,11 +56,11 @@ function evaluateCo2(co2ppm: number): number {
 }
 
 function evaluateNoise(noiseDb: number): number {
-  if (noiseDb <= 30) return 5
-  if (noiseDb <= 40) return 4
-  if (noiseDb <= 55) return 3
-  if (noiseDb <= 70) return 2
-  return 1 // NoiseDb > 70
+  if (noiseDb <= 55) return 5
+  if (noiseDb <= 65) return 4
+  if (noiseDb <= 70) return 3
+  if (noiseDb <= 75) return 2
+  return 1 // NoiseDb > 75
 }
 
 function evaluatePressure(hpa: number): number {
