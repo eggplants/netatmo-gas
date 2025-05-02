@@ -6,7 +6,8 @@ export function evaluateEnvironmentParameter(props: {
   pressureHpa: number
 }) {
   const {co2ppm, humidity, noiseDb, pressureHpa, temperature} = props
-  const temperatureHumidityIndex = 0.81 * temperature + 0.01 * humidity * (0.99 * temperature - 14.3) + 46.3
+  // NOTE: https://ja.wikipedia.org/wiki/不快指数
+  const thi = 0.81 * temperature + 0.01 * humidity * (0.99 * temperature - 14.3) + 46.3
   return {
     co2ppm: [co2ppm, toStarRating(evaluateCo2(co2ppm))],
     humidity: [humidity, toStarRating(evaluateHumidity(humidity))],
