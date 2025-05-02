@@ -6,17 +6,30 @@ export function evaluateEnvironmentParameter(props: {
   pressureHpa: number
 }) {
   const {co2ppm, humidity, noiseDb, pressureHpa, temperature} = props
+  const temperatureHumidityIndex = 0.81 * temperature + 0.01 * humidity * (0.99 * temperature - 14.3) + 46.3
   return {
     co2ppm: [co2ppm, toStarRating(evaluateCo2(co2ppm))],
     humidity: [humidity, toStarRating(evaluateHumidity(humidity))],
     noiseDb: [noiseDb, toStarRating(evaluateNoise(noiseDb))],
     pressureHpa: [pressureHpa, toStarRating(evaluatePressure(pressureHpa))],
     temperature: [temperature, toStarRating(evaluateTemperature(temperature))],
+    temperatureHumidityIndex: [
+      temperatureHumidityIndex,
+      toStarRating(evaluateTemperatureHumidityIndex(temperatureHumidityIndex)),
+    ],
   }
 }
 
 function toStarRating(score: number): string {
   return '★'.repeat(score) + '☆'.repeat(5 - score)
+}
+
+function evaluateTemperatureHumidityIndex(discomfortIndex: number): number {
+  if (discomfortIndex >= 65 && discomfortIndex <= 70) return 5
+  if (discomfortIndex >= 60 && discomfortIndex < 65) return 4
+  if (discomfortIndex >= 55 && discomfortIndex < 60 && discomfortIndex > 70 && discomfortIndex <= 75) return 3
+  if ((discomfortIndex >= 50 && discomfortIndex < 55) || (discomfortIndex > 75 && discomfortIndex <= 80)) return 2
+  return 1 // TemperatureHumidityIndex < 50 or > 80
 }
 
 function evaluateTemperature(temp: number): number {

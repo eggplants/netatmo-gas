@@ -20,7 +20,7 @@ export function createSlackMessage(stationData: NetatmoStationData, serverDate: 
 }
 
 function createSlackMessageForDevice(device: NetatmoStationDevice) {
-  const {co2ppm, humidity, noiseDb, pressureHpa, temperature} = evaluateEnvironmentParameter({
+  const {co2ppm, humidity, noiseDb, pressureHpa, temperature, temperatureHumidityIndex} = evaluateEnvironmentParameter({
     co2ppm: device.dashboard_data.CO2,
     humidity: device.dashboard_data.Humidity,
     noiseDb: device.dashboard_data.Noise,
@@ -34,6 +34,7 @@ function createSlackMessageForDevice(device: NetatmoStationDevice) {
     `*CO2*: ${co2ppm[0]}ppm	${co2ppm[1]}`,
     `*Noise*: ${noiseDb[0]}dB	${noiseDb[1]}`,
     `*Pressure*: ${pressureHpa[0]}hPa	${pressureHpa[1]}`,
+    `*THI*: ${temperatureHumidityIndex[0]}	${temperatureHumidityIndex[1]}`,
   ].map((text) => ({
     fields: [{text, type: 'mrkdwn'}],
     type: 'section',
