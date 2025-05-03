@@ -34,9 +34,16 @@ function createSlackMessageForDevice(device: NetatmoStationDevice) {
     `*CO2*: ${co2ppm[0]}ppm	${co2ppm[1]}`,
     `*Noise*: ${noiseDb[0]}dB	${noiseDb[1]}`,
     `*Pressure*: ${pressureHpa[0]}hPa	${pressureHpa[1]}`,
-    `*THI*: ${thi[0]}	${thi[1]}`,
+    `*THI*: ${formatFloatToRounded(thi[0], 0.01)}	${thi[1]}`,
   ].map((text) => ({
     fields: [{text, type: 'mrkdwn'}],
     type: 'section',
   }))
+}
+
+function formatFloatToRounded(num: number, base: number): string {
+  const roundedNumber = Math.ceil(num / base) * base
+  return roundedNumber
+    .toString()
+    .replace(/^(\d+\.\d{1,2}).*$/, "$1")
 }
